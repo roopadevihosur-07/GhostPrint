@@ -8,11 +8,8 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── Dark theme (default) ── */
-    :root,
     [data-theme="dark"] {
       --bg:           #060d1f;
-      --bg2:          #0a1428;
       --surface:      rgba(255,255,255,0.05);
       --glass-border: rgba(255,255,255,0.10);
       --glass-hover:  rgba(255,255,255,0.09);
@@ -21,54 +18,51 @@
       --hint:         #4a6080;
       --accent:       #4a9eff;
       --accent2:      #7c5cfc;
-      --grad-start:   rgba(74,158,255,0.13);
-      --grad-end:     rgba(124,92,252,0.10);
-      --overlay-bg:   rgba(6,13,31,0.85);
-      --report-bg:    rgba(6,13,31,0.97);
-      --name-grad:    linear-gradient(135deg, #ffffff 30%, #4a9eff 100%);
-      --btn-sec-bg:   rgba(255,255,255,0.05);
-      --evidence-bg:  rgba(255,255,255,0.04);
-      --evidence-br:  rgba(255,255,255,0.12);
+      --grad-a:       rgba(74,158,255,0.13);
+      --grad-b:       rgba(124,92,252,0.10);
+      --overlay-bg:   rgba(6,13,31,0.88);
+      --nav-bg:       rgba(6,13,31,0.80);
+      --name-grad:    linear-gradient(135deg,#ffffff 30%,#4a9eff 100%);
+      --btn-sec:      rgba(255,255,255,0.06);
+      --ev-bg:        rgba(255,255,255,0.04);
+      --ev-br:        rgba(255,255,255,0.12);
       --fix-sep:      rgba(255,255,255,0.05);
-      --score-track:  rgba(255,255,255,0.08);
-      --toggle-bg:    rgba(255,255,255,0.08);
-      --toggle-icon:  #8fa8cc;
-      --critical: #ff5c5c; --critical-bg: rgba(255,92,92,0.15);  --critical-text: #ff8f8f;
-      --high:     #ffaa33; --high-bg:     rgba(255,170,51,0.15); --high-text:     #ffc970;
-      --medium:   #4a9eff; --medium-bg:   rgba(74,158,255,0.15); --medium-text:   #7cbfff;
-      --low:      #3ecf8e; --low-bg:      rgba(62,207,142,0.15); --low-text:      #6ddfad;
+      --track:        rgba(255,255,255,0.08);
+      --tog-bg:       rgba(255,255,255,0.08);
+      --critical:#ff5c5c; --critical-bg:rgba(255,92,92,0.15);  --critical-text:#ff8f8f;
+      --high:    #ffaa33; --high-bg:    rgba(255,170,51,0.15); --high-text:    #ffc970;
+      --medium:  #4a9eff; --medium-bg:  rgba(74,158,255,0.15); --medium-text:  #7cbfff;
+      --low:     #3ecf8e; --low-bg:     rgba(62,207,142,0.15); --low-text:     #6ddfad;
     }
 
-    /* ── Light theme ── */
     [data-theme="light"] {
       --bg:           #f0f4fb;
-      --bg2:          #e4eaf5;
-      --surface:      rgba(255,255,255,0.70);
+      --surface:      rgba(255,255,255,0.72);
       --glass-border: rgba(0,0,0,0.08);
-      --glass-hover:  rgba(255,255,255,0.90);
+      --glass-hover:  rgba(255,255,255,0.92);
       --text:         #0f1c35;
       --muted:        #4a6080;
       --hint:         #8fa8cc;
       --accent:       #1a7fe8;
       --accent2:      #6040d0;
-      --grad-start:   rgba(74,158,255,0.10);
-      --grad-end:     rgba(124,92,252,0.07);
-      --overlay-bg:   rgba(220,230,245,0.88);
-      --report-bg:    rgba(240,244,251,0.98);
-      --name-grad:    linear-gradient(135deg, #0f1c35 30%, #1a7fe8 100%);
-      --btn-sec-bg:   rgba(255,255,255,0.75);
-      --evidence-bg:  rgba(0,0,0,0.03);
-      --evidence-br:  rgba(0,0,0,0.12);
+      --grad-a:       rgba(74,158,255,0.10);
+      --grad-b:       rgba(124,92,252,0.07);
+      --overlay-bg:   rgba(220,230,245,0.90);
+      --nav-bg:       rgba(240,244,251,0.85);
+      --name-grad:    linear-gradient(135deg,#0f1c35 30%,#1a7fe8 100%);
+      --btn-sec:      rgba(255,255,255,0.76);
+      --ev-bg:        rgba(0,0,0,0.03);
+      --ev-br:        rgba(0,0,0,0.12);
       --fix-sep:      rgba(0,0,0,0.06);
-      --score-track:  rgba(0,0,0,0.08);
-      --toggle-bg:    rgba(0,0,0,0.07);
-      --toggle-icon:  #4a6080;
-      --critical: #d63030; --critical-bg: rgba(214,48,48,0.10);  --critical-text: #b01f1f;
-      --high:     #c47700; --high-bg:     rgba(196,119,0,0.10);  --high-text:     #8f5700;
-      --medium:   #1a7fe8; --medium-bg:   rgba(26,127,232,0.10); --medium-text:   #0c5aad;
-      --low:      #159a60; --low-bg:      rgba(21,154,96,0.10);  --low-text:      #0a6b42;
+      --track:        rgba(0,0,0,0.08);
+      --tog-bg:       rgba(0,0,0,0.07);
+      --critical:#d63030; --critical-bg:rgba(214,48,48,0.10);  --critical-text:#b01f1f;
+      --high:    #c47700; --high-bg:    rgba(196,119,0,0.10);  --high-text:    #8f5700;
+      --medium:  #1a7fe8; --medium-bg:  rgba(26,127,232,0.10); --medium-text:  #0c5aad;
+      --low:     #159a60; --low-bg:     rgba(21,154,96,0.10);  --low-text:     #0a6b42;
     }
 
+    html { scroll-behavior: smooth; }
     html, body { height: 100%; overflow-x: hidden; }
 
     body {
@@ -84,11 +78,10 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, var(--grad-start) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 80%, var(--grad-end)   0%, transparent 55%);
+        radial-gradient(ellipse 80% 60% at 20% 10%, var(--grad-a) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, var(--grad-b) 0%, transparent 55%);
       pointer-events: none;
       z-index: 0;
-      transition: background .3s;
     }
 
     .glass {
@@ -100,31 +93,54 @@
       transition: background .3s, border-color .3s;
     }
 
-    /* ── Theme toggle ── */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 999;
-      width: 40px;
+    /* ─── Shared button styles ─── */
+    .btn {
       height: 40px;
-      border-radius: 50%;
-      border: 1px solid var(--glass-border);
-      background: var(--toggle-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      padding: 0 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
+      border: none;
       transition: all .2s;
-      color: var(--toggle-icon);
+      white-space: nowrap;
     }
+    .btn-primary {
+      background: linear-gradient(135deg,#4a9eff,#7c5cfc);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(74,158,255,.3);
+      height: 48px;
+      padding: 0 22px;
+      font-size: 14px;
+    }
+    .btn-primary:hover  { opacity:.88; transform:translateY(-1px); }
+    .btn-primary:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+    .btn-secondary {
+      background: var(--btn-sec);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: var(--glass-hover); }
 
-    .theme-toggle:hover { transform: scale(1.1); background: var(--glass-hover); }
+    .icon-btn {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--btn-sec);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--glass-hover); color: var(--text); }
+    .icon-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ── Landing ── */
+    /* ─────────────────────────────────────────
+       LANDING PAGE
+    ───────────────────────────────────────── */
     #landing {
       position: relative;
       z-index: 1;
@@ -136,450 +152,285 @@
       padding: 40px 24px;
     }
 
+    /* fixed theme toggle only on landing */
+    #landingThemeToggle {
+      position: fixed;
+      top: 20px; right: 20px;
+      z-index: 50;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--tog-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      transition: all .2s;
+    }
+    #landingThemeToggle:hover { transform: scale(1.1); background: var(--glass-hover); }
+
     .brand {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 48px;
     }
-
     .brand-logo {
-      width: 120px;
-      height: 120px;
+      width: 120px; height: 120px;
       object-fit: contain;
-      filter: drop-shadow(0 0 32px rgba(74,158,255,0.4));
+      filter: drop-shadow(0 0 32px rgba(74,158,255,.4));
       margin-bottom: 8px;
       transition: filter .3s;
     }
-
-    [data-theme="light"] .brand-logo {
-      filter: drop-shadow(0 0 24px rgba(26,127,232,0.3));
-    }
-
+    [data-theme="light"] .brand-logo { filter: drop-shadow(0 0 24px rgba(26,127,232,.3)); }
     .brand-name {
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
+      font-size: 42px; font-weight: 700; letter-spacing: -.5px;
       background: var(--name-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       line-height: 1.1;
     }
+    .brand-tagline { font-size: 15px; color: var(--muted); margin-top: 6px; letter-spacing: .02em; }
 
-    .brand-tagline {
-      font-size: 15px;
-      color: var(--muted);
-      margin-top: 6px;
-      letter-spacing: 0.02em;
-    }
-
-    .search-card {
-      width: 100%;
-      max-width: 560px;
-      padding: 36px 36px 28px;
-    }
-
+    .search-card { width: 100%; max-width: 560px; padding: 36px 36px 28px; }
     .search-card h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
-
-    .search-card p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 24px;
-    }
+    .search-card p  { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
 
     .search-row { display: flex; gap: 10px; }
-
     .search-row input {
-      flex: 1;
-      height: 48px;
-      background: var(--evidence-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 0 18px;
-      font-size: 15px;
-      color: var(--text);
-      outline: none;
-      transition: border-color .2s, box-shadow .2s, background .3s;
+      flex: 1; height: 48px;
+      background: var(--ev-bg);
+      border: 1px solid var(--glass-border); border-radius: 12px;
+      padding: 0 18px; font-size: 15px; color: var(--text);
+      outline: none; transition: border-color .2s, box-shadow .2s;
     }
-
     .search-row input::placeholder { color: var(--hint); }
+    .search-row input:focus { border-color: rgba(74,158,255,.5); box-shadow: 0 0 0 3px rgba(74,158,255,.12); }
 
-    .search-row input:focus {
-      border-color: rgba(74,158,255,0.5);
-      box-shadow: 0 0 0 3px rgba(74,158,255,0.12);
-    }
-
-    .btn {
-      height: 48px;
-      padding: 0 22px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all .2s;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #4a9eff, #7c5cfc);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(74,158,255,0.3);
-    }
-
-    .btn-primary:hover { opacity: .88; transform: translateY(-1px); box-shadow: 0 6px 26px rgba(74,158,255,0.4); }
-    .btn-primary:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
-
-    .btn-secondary {
-      background: var(--btn-sec-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      color: var(--text);
-    }
-
-    .btn-secondary:hover { background: var(--glass-hover); }
-
-    .demo-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
+    .demo-row { display: flex; align-items: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
     .demo-label { font-size: 11px; color: var(--hint); }
-
     .demo-chip {
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: rgba(74,158,255,0.10);
-      color: var(--medium-text);
-      cursor: pointer;
-      border: 1px solid rgba(74,158,255,0.2);
-      font-family: inherit;
-      transition: all .15s;
+      font-size: 11px; padding: 4px 12px; border-radius: 20px;
+      background: rgba(74,158,255,.10); color: var(--medium-text);
+      cursor: pointer; border: 1px solid rgba(74,158,255,.2);
+      font-family: inherit; transition: all .15s;
     }
-
-    .demo-chip:hover { background: rgba(74,158,255,0.2); border-color: rgba(74,158,255,0.4); }
+    .demo-chip:hover { background: rgba(74,158,255,.22); border-color: rgba(74,158,255,.4); }
 
     #error {
       display: none;
-      background: var(--critical-bg);
-      color: var(--critical-text);
-      border: 1px solid rgba(255,92,92,0.3);
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 13px;
-      margin-top: 16px;
-      width: 100%;
-      max-width: 560px;
+      background: var(--critical-bg); color: var(--critical-text);
+      border: 1px solid rgba(255,92,92,.3); border-radius: 12px;
+      padding: 14px 18px; font-size: 13px; margin-top: 16px;
+      width: 100%; max-width: 560px;
     }
 
-    /* ── Progress overlay ── */
+    /* ─────────────────────────────────────────
+       PROGRESS OVERLAY (shown over landing)
+    ───────────────────────────────────────── */
     #progress {
       display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 300;
+      position: fixed; inset: 0; z-index: 300;
       background: var(--overlay-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      align-items: center;
-      justify-content: center;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      align-items: center; justify-content: center;
     }
-
     #progress.visible { display: flex; }
 
-    .progress-box {
-      width: 100%;
-      max-width: 420px;
-      padding: 40px 36px;
-    }
-
+    .progress-box { width: 100%; max-width: 420px; padding: 40px 36px; }
     .progress-handle {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 4px;
+      font-size: 22px; font-weight: 700; margin-bottom: 4px;
       background: var(--name-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
     .progress-sub { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
-
     .step-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-
-    .step {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 13px;
-      color: var(--hint);
-      transition: color .3s;
-    }
-
+    .step { display: flex; align-items: center; gap: 14px; font-size: 13px; color: var(--hint); transition: color .3s; }
     .step.active { color: var(--text); }
-    .step.done { color: var(--low-text); }
-
+    .step.done   { color: var(--low-text); }
     .step-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 1.5px solid var(--hint);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid var(--hint); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 11px;
       transition: all .3s;
     }
-
-    .step.active .step-icon {
-      border-color: var(--accent);
-      background: rgba(74,158,255,0.15);
-      box-shadow: 0 0 12px rgba(74,158,255,0.4);
-      animation: pulse 1.4s infinite;
-    }
-
-    .step.done .step-icon {
-      border-color: var(--low);
-      background: var(--low-bg);
-      color: var(--low-text);
-    }
-
+    .step.active .step-icon { border-color:var(--accent); background:rgba(74,158,255,.15); box-shadow:0 0 12px rgba(74,158,255,.4); animation:pulse 1.4s infinite; }
+    .step.done   .step-icon { border-color:var(--low); background:var(--low-bg); color:var(--low-text); }
     @keyframes pulse {
-      0%,100% { opacity:1; box-shadow:0 0 12px rgba(74,158,255,0.4); }
-      50%      { opacity:.6; box-shadow:0 0 22px rgba(74,158,255,0.7); }
+      0%,100% { opacity:1; box-shadow:0 0 12px rgba(74,158,255,.4); }
+      50%      { opacity:.6; box-shadow:0 0 22px rgba(74,158,255,.7); }
     }
 
-    /* ── Full-screen report overlay ── */
-    #reportOverlay {
+    /* ─────────────────────────────────────────
+       REPORT PAGE  (full-page layout)
+    ───────────────────────────────────────── */
+    #reportPage {
       display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: var(--report-bg);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      overflow-y: auto;
-      transition: background .3s;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
     }
 
-    #reportOverlay.visible { display: block; }
+    #reportPage.visible { display: block; }
 
-    .report-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 24px 60px;
-    }
-
-    .report-topbar {
+    /* sticky top nav */
+    .report-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 0 32px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-      gap: 12px;
+      gap: 16px;
+      transition: background .3s, border-color .3s;
     }
 
-    .report-topbar-brand { display: flex; align-items: center; gap: 10px; }
-    .report-topbar-logo { width: 36px; height: 36px; object-fit: contain; }
-
-    .report-topbar-name {
-      font-size: 16px;
-      font-weight: 700;
+    .nav-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-logo  { width: 30px; height: 30px; object-fit: contain; }
+    .nav-name  {
+      font-size: 15px; font-weight: 700;
       background: var(--name-grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
 
-    .report-topbar-actions { display: flex; gap: 10px; }
-
-    .report-header-card { padding: 28px 32px; margin-bottom: 20px; }
-
-    .report-top { display: flex; align-items: flex-start; gap: 28px; }
-
-    .score-ring { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
-    .score-ring canvas { position: absolute; top: 0; left: 0; }
-
-    .score-ring .score-num {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    .nav-handle-badge {
+      display: flex; align-items: center; gap: 10px;
+      flex: 1; justify-content: center; min-width: 0;
     }
-
-    .score-big { font-size: 32px; font-weight: 800; line-height: 1; }
-    .score-label { font-size: 9px; color: var(--muted); margin-top: 3px; letter-spacing: .1em; text-transform: uppercase; }
-
-    .report-meta { flex: 1; }
-    .handle-line { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-
-    .risk-badge {
-      display: inline-flex;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      margin-bottom: 12px;
-    }
-
-    .report-summary { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 600px; }
-
-    .report-meta-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-
-    .meta-chip {
-      font-size: 11px;
-      background: var(--evidence-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 3px 12px;
-      color: var(--hint);
-    }
-
-    .platforms-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-
-    .platform-badge {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: rgba(74,158,255,0.08);
-      border: 1px solid rgba(74,158,255,0.18);
-      color: var(--medium-text);
-    }
-
-    .actions-card { padding: 24px 28px; margin-bottom: 20px; }
-
-    .section-title {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--hint);
-      margin-bottom: 16px;
-    }
-
-    .action-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .action-item:last-child { border-bottom: none; }
-
-    .action-num {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--critical-bg);
-      color: var(--critical-text);
-      font-size: 11px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .nav-handle { font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-risk-badge {
+      padding: 3px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: .06em;
       flex-shrink: 0;
     }
 
-    .action-num.n2 { background: var(--high-bg); color: var(--high-text); }
-    .action-num.n3 { background: var(--medium-bg); color: var(--medium-text); }
-    .action-text { font-size: 14px; color: var(--text); line-height: 1.55; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    .threat-grid {
+    /* report body */
+    .report-body { padding: 32px 32px 60px; max-width: 1280px; margin: 0 auto; }
+
+    /* hero row: score ring + summary + meta */
+    .report-hero {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 16px;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: start;
+      padding: 28px 32px;
       margin-bottom: 24px;
     }
 
-    .threat-card { padding: 24px 26px; }
+    .score-ring { position: relative; width: 130px; height: 130px; flex-shrink: 0; }
+    .score-ring canvas { position: absolute; top: 0; left: 0; }
+    .score-ring .score-num {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .score-big  { font-size: 36px; font-weight: 800; line-height: 1; }
+    .score-lbl  { font-size: 9px; color: var(--muted); margin-top: 3px; letter-spacing: .1em; text-transform: uppercase; }
 
-    .threat-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 4px;
+    .hero-meta { display: flex; flex-direction: column; gap: 10px; }
+    .hero-summary { font-size: 14px; color: var(--muted); line-height: 1.75; max-width: 700px; }
+
+    .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    .meta-chip {
+      font-size: 11px; padding: 3px 12px; border-radius: 20px;
+      background: var(--ev-bg); border: 1px solid var(--glass-border); color: var(--hint);
+    }
+    .platform-badge {
+      font-size: 11px; padding: 3px 10px; border-radius: 20px;
+      background: rgba(74,158,255,.08); border: 1px solid rgba(74,158,255,.18); color: var(--medium-text);
     }
 
-    .threat-name { font-size: 13px; font-weight: 700; }
-    .threat-score-badge { font-size: 22px; font-weight: 800; }
-    .threat-headline { font-size: 12px; color: var(--muted); margin-bottom: 14px; line-height: 1.45; }
+    /* 3-column layout: actions | threats (2-col) */
+    .report-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
 
-    .score-bar { height: 3px; border-radius: 2px; background: var(--score-track); margin-bottom: 18px; overflow: hidden; }
+    /* actions sidebar */
+    .actions-card { padding: 24px 24px; }
+    .section-title {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--hint); margin-bottom: 14px;
+    }
+    .action-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 0; border-bottom: 1px solid var(--glass-border);
+    }
+    .action-item:last-child { border-bottom: none; }
+    .action-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--critical-bg); color: var(--critical-text);
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .action-num.n2 { background:var(--high-bg); color:var(--high-text); }
+    .action-num.n3 { background:var(--medium-bg); color:var(--medium-text); }
+    .action-text { font-size: 13px; color: var(--text); line-height: 1.55; }
+
+    /* threat cards grid */
+    .threat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .threat-card { padding: 22px 24px; }
+    .threat-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+    .threat-name  { font-size: 13px; font-weight: 700; }
+    .threat-score { font-size: 22px; font-weight: 800; }
+    .threat-headline { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
+
+    .score-bar { height: 3px; border-radius: 2px; background: var(--track); margin-bottom: 16px; overflow: hidden; }
     .score-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
 
-    .evidence-title {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--hint);
-      margin-bottom: 8px;
+    .ev-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--hint); margin-bottom: 7px; }
+    .ev-item {
+      background: var(--ev-bg); border-left: 2px solid var(--ev-br);
+      padding: 7px 11px; border-radius: 0 7px 7px 0;
+      font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 5px; font-style: italic;
+      word-break: break-all; overflow-wrap: break-word; overflow: hidden;
     }
 
-    .evidence-item {
-      background: var(--evidence-bg);
-      border-left: 2px solid var(--evidence-br);
-      padding: 8px 12px;
-      border-radius: 0 8px 8px 0;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.55;
-      margin-bottom: 6px;
-      font-style: italic;
-    }
-
-    .fixes-list { list-style: none; margin-top: 14px; }
-
+    .fixes-list { list-style: none; margin-top: 12px; }
     .fix-item {
-      display: flex;
-      gap: 10px;
-      padding: 6px 0;
-      font-size: 12px;
-      color: var(--text);
-      line-height: 1.5;
-      border-bottom: 1px solid var(--fix-sep);
+      display: flex; gap: 9px; padding: 5px 0; font-size: 12px; color: var(--text);
+      line-height: 1.45; border-bottom: 1px solid var(--fix-sep);
     }
-
     .fix-item:last-child { border-bottom: none; }
+    .fix-check { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: var(--accent); }
 
-    .fix-check {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-      margin-top: 1px;
-      cursor: pointer;
-      accent-color: var(--accent);
+    /* responsive */
+    @media (max-width: 900px) {
+      .report-grid { grid-template-columns: 1fr; }
+      .report-body { padding: 20px 16px 60px; }
+      .report-nav  { padding: 0 16px; }
     }
-
     @media (max-width: 640px) {
-      .brand-name { font-size: 32px; }
-      .brand-logo { width: 90px; height: 90px; }
-      .threat-grid { grid-template-columns: 1fr; }
-      .search-row { flex-direction: column; }
-      .report-top { flex-direction: column; }
+      .brand-name  { font-size: 32px; }
+      .brand-logo  { width: 90px; height: 90px; }
       .search-card { padding: 24px; }
+      .search-row  { flex-direction: column; }
+      .report-hero { grid-template-columns: 1fr; padding: 20px; }
+      .threat-grid { grid-template-columns: 1fr; }
+      .nav-handle-badge { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- Theme toggle -->
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
-
-<!-- Landing -->
+<!-- ─── LANDING ─── -->
 <div id="landing">
+  <button class="icon-btn" id="landingThemeToggle" onclick="toggleTheme()" title="Toggle theme" style="position:fixed;top:20px;right:20px;z-index:50;border-radius:50%;width:40px;height:40px;">🌙</button>
+
   <div class="brand">
     <img src="/logo.png" alt="GhostPrint" class="brand-logo" />
     <div class="brand-name">GhostPrint</div>
@@ -604,334 +455,273 @@
   <div id="error"></div>
 </div>
 
-<!-- Progress overlay -->
+<!-- ─── PROGRESS (overlay over landing) ─── -->
 <div id="progress">
   <div class="progress-box glass">
     <div class="progress-handle" id="progressHandle">Scanning...</div>
     <div class="progress-sub">This usually takes 30–60 seconds</div>
-    <ul class="step-list" id="stepList">
-      <li class="step" data-step="0"><div class="step-icon"></div>Starting 7 Apify actors in parallel</li>
-      <li class="step" data-step="1"><div class="step-icon"></div>Scraping Instagram, TikTok, Twitter/X</li>
-      <li class="step" data-step="2"><div class="step-icon"></div>Scraping YouTube, Google Search, News</li>
-      <li class="step" data-step="3"><div class="step-icon"></div>Crawling bio links &amp; external sites</li>
-      <li class="step" data-step="4"><div class="step-icon"></div>Analyzing threats with Claude AI</li>
-      <li class="step" data-step="5"><div class="step-icon"></div>Building your privacy report</li>
+    <ul class="step-list">
+      <li class="step"><div class="step-icon"></div>Starting 7 Apify actors in parallel</li>
+      <li class="step"><div class="step-icon"></div>Scraping Instagram, TikTok, Twitter/X</li>
+      <li class="step"><div class="step-icon"></div>Scraping YouTube, Google Search, News</li>
+      <li class="step"><div class="step-icon"></div>Crawling bio links &amp; external sites</li>
+      <li class="step"><div class="step-icon"></div>Analyzing threats with Claude AI</li>
+      <li class="step"><div class="step-icon"></div>Building your privacy report</li>
     </ul>
   </div>
 </div>
 
-<!-- Full-screen report overlay -->
-<div id="reportOverlay">
-  <div class="report-inner">
+<!-- ─── REPORT PAGE ─── -->
+<div id="reportPage">
 
-    <div class="report-topbar">
-      <div class="report-topbar-brand">
-        <img src="/logo.png" alt="GhostPrint" class="report-topbar-logo" />
-        <span class="report-topbar-name">GhostPrint</span>
-      </div>
-      <div class="report-topbar-actions">
-        <button class="theme-toggle" style="position:static;width:40px;height:40px;" id="reportThemeToggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
-        <button class="btn btn-secondary" onclick="downloadReport()">Download JSON</button>
-        <button class="btn btn-secondary" onclick="resetScan()">New scan</button>
-      </div>
+  <!-- sticky nav -->
+  <nav class="report-nav">
+    <div class="nav-brand">
+      <img src="/logo.png" alt="GhostPrint" class="nav-logo" />
+      <span class="nav-name">GhostPrint</span>
     </div>
 
-    <div class="report-header-card glass">
-      <div class="report-top">
-        <div class="score-ring">
-          <canvas id="scoreChart" width="120" height="120"></canvas>
-          <div class="score-num">
-            <span class="score-big" id="scoreNum">--</span>
-            <span class="score-label">RISK</span>
-          </div>
-        </div>
-        <div class="report-meta">
-          <div class="handle-line" id="reportHandle"></div>
-          <div class="risk-badge" id="riskBadge"></div>
-          <div class="report-summary" id="reportSummary"></div>
-          <div class="report-meta-row">
-            <div class="meta-chip" id="scannedAt"></div>
-            <div class="meta-chip" id="dataPoints"></div>
-          </div>
-          <div class="platforms-row" id="platformsRow"></div>
+    <div class="nav-handle-badge">
+      <span class="nav-handle" id="navHandle"></span>
+      <span class="nav-risk-badge" id="navRiskBadge"></span>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="reportThemeToggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      <button class="btn btn-secondary" onclick="downloadReport()">Download JSON</button>
+      <button class="btn btn-secondary" onclick="resetScan()">New scan</button>
+    </div>
+  </nav>
+
+  <!-- body -->
+  <div class="report-body">
+
+    <!-- hero: score ring + summary -->
+    <div class="report-hero glass">
+      <div class="score-ring">
+        <canvas id="scoreChart" width="130" height="130"></canvas>
+        <div class="score-num">
+          <span class="score-big" id="scoreNum">--</span>
+          <span class="score-lbl">RISK</span>
         </div>
       </div>
+      <div class="hero-meta">
+        <div class="report-summary" id="reportSummary"></div>
+        <div class="meta-row">
+          <div class="meta-chip" id="scannedAt"></div>
+          <div class="meta-chip" id="dataPoints"></div>
+        </div>
+        <div class="meta-row" id="platformsRow"></div>
+      </div>
     </div>
 
-    <div class="actions-card glass">
-      <div class="section-title">Top 3 urgent actions</div>
-      <div id="actionsList"></div>
+    <!-- actions + threats -->
+    <div class="report-grid">
+
+      <!-- left: top 3 actions -->
+      <div class="actions-card glass">
+        <div class="section-title">Top 3 urgent actions</div>
+        <div id="actionsList"></div>
+      </div>
+
+      <!-- right: 2×2 threat cards -->
+      <div class="threat-grid" id="threatGrid"></div>
+
     </div>
-
-    <div class="threat-grid" id="threatGrid"></div>
-
   </div>
 </div>
 
 <script>
   let currentReport = null;
-  let progressTimer = null;
-  let stepIndex = 0;
+  let progressTimer  = null;
+  let stepIndex      = 0;
 
-  // ── Theme ──
-  const ICONS = { dark: '🌙', light: '☀️' };
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('gp-theme', theme);
-    const icon = ICONS[theme];
-    document.getElementById('themeToggle').textContent = icon;
-    document.getElementById('reportThemeToggle').textContent = icon;
+  /* ── Theme ── */
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('gp-theme', t);
+    const icon = t === 'dark' ? '🌙' : '☀️';
+    document.getElementById('landingThemeToggle').textContent  = icon;
+    document.getElementById('reportThemeToggle').textContent   = icon;
   }
-
   function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme') || 'dark';
-    applyTheme(current === 'dark' ? 'light' : 'dark');
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   }
-
-  // Init theme from storage or system preference
-  (function () {
-    const saved = localStorage.getItem('gp-theme');
-    if (saved) {
-      applyTheme(saved);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      applyTheme(prefersDark ? 'dark' : 'light');
-    }
+  (function() {
+    const s = localStorage.getItem('gp-theme');
+    applyTheme(s || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'));
   })();
 
-  // ── Colors ──
-  const DARK_COLORS = {
-    critical: { bar: '#ff5c5c', score: '#ff5c5c', bg: 'rgba(255,92,92,0.15)',  text: '#ff8f8f' },
-    high:     { bar: '#ffaa33', score: '#ffaa33', bg: 'rgba(255,170,51,0.15)', text: '#ffc970' },
-    medium:   { bar: '#4a9eff', score: '#4a9eff', bg: 'rgba(74,158,255,0.15)', text: '#7cbfff' },
-    low:      { bar: '#3ecf8e', score: '#3ecf8e', bg: 'rgba(62,207,142,0.15)', text: '#6ddfad' },
+  /* ── Risk colors ── */
+  const DARK_C  = {
+    critical:{bar:'#ff5c5c',score:'#ff5c5c',bg:'rgba(255,92,92,.15)',  text:'#ff8f8f'},
+    high:    {bar:'#ffaa33',score:'#ffaa33',bg:'rgba(255,170,51,.15)', text:'#ffc970'},
+    medium:  {bar:'#4a9eff',score:'#4a9eff',bg:'rgba(74,158,255,.15)', text:'#7cbfff'},
+    low:     {bar:'#3ecf8e',score:'#3ecf8e',bg:'rgba(62,207,142,.15)', text:'#6ddfad'},
   };
-
-  const LIGHT_COLORS = {
-    critical: { bar: '#d63030', score: '#d63030', bg: 'rgba(214,48,48,0.10)',  text: '#b01f1f' },
-    high:     { bar: '#c47700', score: '#c47700', bg: 'rgba(196,119,0,0.10)',  text: '#8f5700' },
-    medium:   { bar: '#1a7fe8', score: '#1a7fe8', bg: 'rgba(26,127,232,0.10)', text: '#0c5aad' },
-    low:      { bar: '#159a60', score: '#159a60', bg: 'rgba(21,154,96,0.10)',  text: '#0a6b42' },
+  const LIGHT_C = {
+    critical:{bar:'#d63030',score:'#d63030',bg:'rgba(214,48,48,.10)',  text:'#b01f1f'},
+    high:    {bar:'#c47700',score:'#c47700',bg:'rgba(196,119,0,.10)',  text:'#8f5700'},
+    medium:  {bar:'#1a7fe8',score:'#1a7fe8',bg:'rgba(26,127,232,.10)', text:'#0c5aad'},
+    low:     {bar:'#159a60',score:'#159a60',bg:'rgba(21,154,96,.10)',  text:'#0a6b42'},
   };
-
-  function getColors(level) {
-    const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-    const map = isDark ? DARK_COLORS : LIGHT_COLORS;
-    return map[level] || map.medium;
+  function getC(level) {
+    const m = document.documentElement.getAttribute('data-theme') === 'light' ? LIGHT_C : DARK_C;
+    return m[level] || m.medium;
   }
 
-  const CATEGORY_LABELS = {
-    location_exposure:  'Location Exposure',
-    dox_surface:        'Dox Surface Area',
-    breach_exposure:    'Breach Exposure',
-    impersonation_risk: 'Impersonation Risk',
-  };
-
-  const CATEGORY_ICONS = {
-    location_exposure:  '📍',
-    dox_surface:        '🔍',
-    breach_exposure:    '🔓',
-    impersonation_risk: '👤',
-  };
+  const CAT_LABELS = {location_exposure:'Location Exposure',dox_surface:'Dox Surface Area',breach_exposure:'Breach Exposure',impersonation_risk:'Impersonation Risk'};
+  const CAT_ICONS  = {location_exposure:'📍',dox_surface:'🔍',breach_exposure:'🔓',impersonation_risk:'👤'};
 
   let scoreChart = null;
 
-  // ── Progress ──
-  function startProgressAnimation(handle) {
+  /* ── Progress ── */
+  function startProgress(handle) {
     const steps = document.querySelectorAll('.step');
     stepIndex = 0;
     steps.forEach(s => { s.className = 'step'; s.querySelector('.step-icon').textContent = ''; });
     document.getElementById('progressHandle').textContent = `Scanning @${handle}`;
-
     function tick() {
-      if (stepIndex > 0) {
-        steps[stepIndex - 1].className = 'step done';
-        steps[stepIndex - 1].querySelector('.step-icon').textContent = '✓';
-      }
+      if (stepIndex > 0) { steps[stepIndex-1].className='step done'; steps[stepIndex-1].querySelector('.step-icon').textContent='✓'; }
       if (stepIndex < steps.length) {
-        steps[stepIndex].className = 'step active';
-        steps[stepIndex].querySelector('.step-icon').textContent = '';
+        steps[stepIndex].className = 'step active'; steps[stepIndex].querySelector('.step-icon').textContent = '';
         stepIndex++;
-        const delay = stepIndex < 3 ? 8000 : stepIndex < 5 ? 12000 : 5000;
-        progressTimer = setTimeout(tick, delay);
+        progressTimer = setTimeout(tick, stepIndex < 3 ? 8000 : stepIndex < 5 ? 12000 : 5000);
       }
     }
     tick();
   }
-
-  function stopProgressAnimation() {
+  function stopProgress() {
     clearTimeout(progressTimer);
-    document.querySelectorAll('.step').forEach(s => {
-      s.className = 'step done';
-      s.querySelector('.step-icon').textContent = '✓';
-    });
+    document.querySelectorAll('.step').forEach(s => { s.className='step done'; s.querySelector('.step-icon').textContent='✓'; });
   }
 
-  // ── Scan ──
+  /* ── Scan ── */
   async function startScan() {
-    const input = document.getElementById('handleInput');
-    const handle = input.value.replace(/^@/, '').trim();
+    const input  = document.getElementById('handleInput');
+    const handle = input.value.replace(/^@/,'').trim();
     if (!handle) { input.focus(); return; }
-
     setError('');
     document.getElementById('scanBtn').disabled = true;
     document.getElementById('progress').classList.add('visible');
-    startProgressAnimation(handle);
-
+    startProgress(handle);
     try {
-      const res = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ handle }),
-      });
-      if (!res.ok) { const e = await res.json(); throw new Error(e.error || 'Scan failed'); }
+      const res  = await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({handle})});
+      if (!res.ok) { const e=await res.json(); throw new Error(e.error||'Scan failed'); }
       const data = await res.json();
-      stopProgressAnimation();
+      stopProgress();
       document.getElementById('progress').classList.remove('visible');
       renderReport(data);
-    } catch (err) {
-      stopProgressAnimation();
+    } catch(err) {
+      stopProgress();
       document.getElementById('progress').classList.remove('visible');
       setError(`Scan failed: ${err.message}`);
-    } finally {
-      document.getElementById('scanBtn').disabled = false;
-    }
+    } finally { document.getElementById('scanBtn').disabled = false; }
   }
 
   async function loadDemo(btn) {
     const handle = btn.dataset.handle;
-    document.getElementById('handleInput').value = '@' + handle;
+    document.getElementById('handleInput').value = '@'+handle;
     setError('');
     document.getElementById('scanBtn').disabled = true;
     document.getElementById('progress').classList.add('visible');
-    startProgressAnimation(handle);
-
+    startProgress(handle);
     try {
+      let data;
       const res = await fetch(`/api/cached/${handle}`);
       if (res.ok) {
-        const data = await res.json();
-        await new Promise(r => setTimeout(r, 1500));
-        stopProgressAnimation();
-        document.getElementById('progress').classList.remove('visible');
-        renderReport(data);
+        data = await res.json();
+        await new Promise(r => setTimeout(r,1500));
       } else {
-        const r2 = await fetch('/api/analyze', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ handle }),
-        });
-        if (!r2.ok) { const e = await r2.json(); throw new Error(e.error); }
-        const data = await r2.json();
-        stopProgressAnimation();
-        document.getElementById('progress').classList.remove('visible');
-        renderReport(data);
+        const r2 = await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({handle})});
+        if (!r2.ok) { const e=await r2.json(); throw new Error(e.error); }
+        data = await r2.json();
       }
-    } catch (err) {
-      stopProgressAnimation();
+      stopProgress();
+      document.getElementById('progress').classList.remove('visible');
+      renderReport(data);
+    } catch(err) {
+      stopProgress();
       document.getElementById('progress').classList.remove('visible');
       setError(`Demo failed: ${err.message}`);
-    } finally {
-      document.getElementById('scanBtn').disabled = false;
-    }
+    } finally { document.getElementById('scanBtn').disabled = false; }
   }
 
-  // ── Render report ──
+  /* ── Render report ── */
   function renderReport(data) {
     currentReport = data;
-    const colors = getColors(data.risk_level);
+    const c      = getC(data.risk_level);
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
 
-    document.getElementById('scoreNum').textContent = data.overall_score;
-    document.getElementById('scoreNum').style.color = colors.score;
+    /* nav */
+    document.getElementById('navHandle').textContent = `@${data.handle}`;
+    const nb = document.getElementById('navRiskBadge');
+    nb.textContent = (data.risk_level||'unknown').toUpperCase()+' RISK';
+    nb.style.background = c.bg; nb.style.color = c.text; nb.style.border = `1px solid ${c.bar}55`;
 
+    /* score ring */
+    document.getElementById('scoreNum').textContent  = data.overall_score;
+    document.getElementById('scoreNum').style.color  = c.score;
     if (scoreChart) scoreChart.destroy();
-    const ctx = document.getElementById('scoreChart').getContext('2d');
-    scoreChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [data.overall_score, 100 - data.overall_score],
-          backgroundColor: [colors.bar, isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.07)'],
-          borderWidth: 0,
-          borderRadius: 4,
-        }]
-      },
-      options: {
-        cutout: '76%',
-        plugins: { legend: { display: false }, tooltip: { enabled: false } },
-        animation: { duration: 1000, easing: 'easeOutCubic' },
-      }
+    scoreChart = new Chart(document.getElementById('scoreChart').getContext('2d'), {
+      type:'doughnut',
+      data:{datasets:[{data:[data.overall_score,100-data.overall_score],backgroundColor:[c.bar,isDark?'rgba(255,255,255,.05)':'rgba(0,0,0,.07)'],borderWidth:0,borderRadius:4}]},
+      options:{cutout:'76%',plugins:{legend:{display:false},tooltip:{enabled:false}},animation:{duration:1000,easing:'easeOutCubic'}},
     });
 
-    document.getElementById('reportHandle').textContent = `@${data.handle}`;
-
-    const badge = document.getElementById('riskBadge');
-    badge.textContent = (data.risk_level || 'unknown').toUpperCase() + ' RISK';
-    badge.style.background = colors.bg;
-    badge.style.color = colors.text;
-    badge.style.border = `1px solid ${colors.bar}44`;
-
+    /* summary + meta */
     document.getElementById('reportSummary').textContent = data.summary || '';
+    document.getElementById('scannedAt').textContent   = `Scanned: ${data.scrapedAt ? new Date(data.scrapedAt).toLocaleString() : 'Just now'}`;
+    document.getElementById('dataPoints').textContent  = `${data.data_points_analyzed||'—'} data points`;
 
-    const scannedAt = data.scrapedAt ? new Date(data.scrapedAt).toLocaleString() : 'Just now';
-    document.getElementById('scannedAt').textContent = `Scanned: ${scannedAt}`;
-    document.getElementById('dataPoints').textContent = `${data.data_points_analyzed || '—'} data points`;
-
-    const oldExtra = document.querySelector('#dataPoints + .meta-chip');
-    if (oldExtra) oldExtra.remove();
+    const oldChip = document.querySelector('#dataPoints + .meta-chip');
+    if (oldChip) oldChip.remove();
     if (data.fromCache) {
-      const chip = document.createElement('div');
-      chip.className = 'meta-chip';
-      chip.textContent = 'Cached result';
+      const chip = document.createElement('div'); chip.className='meta-chip'; chip.textContent='Cached';
       document.getElementById('dataPoints').after(chip);
     }
 
-    document.getElementById('platformsRow').innerHTML = (data.scraped_platforms || [])
-      .map(p => `<span class="platform-badge">${p}</span>`).join('');
+    document.getElementById('platformsRow').innerHTML = (data.scraped_platforms||[]).map(p=>`<span class="platform-badge">${p}</span>`).join('');
 
-    const numColors = ['', 'n2', 'n3'];
-    document.getElementById('actionsList').innerHTML = (data.top_3_actions || [])
-      .map((a, i) => `
-        <div class="action-item">
-          <div class="action-num ${numColors[i] || ''}">${i + 1}</div>
-          <div class="action-text">${a}</div>
-        </div>`).join('');
+    /* actions */
+    document.getElementById('actionsList').innerHTML = (data.top_3_actions||[]).map((a,i)=>`
+      <div class="action-item">
+        <div class="action-num ${['','n2','n3'][i]||''}">${i+1}</div>
+        <div class="action-text">${a}</div>
+      </div>`).join('');
 
+    /* threat cards */
     const grid = document.getElementById('threatGrid');
     grid.innerHTML = '';
-    for (const [key, cat] of Object.entries(data.categories || {})) {
-      const c = getColors(cat.risk_level || 'low');
-      const card = document.createElement('div');
-      card.className = 'threat-card glass';
-      card.innerHTML = `
+    for (const [key, cat] of Object.entries(data.categories||{})) {
+      const cc  = getC(cat.risk_level||'low');
+      const el  = document.createElement('div');
+      el.className = 'threat-card glass';
+      el.innerHTML = `
         <div class="threat-card-header">
-          <span class="threat-name">${CATEGORY_ICONS[key] || ''} ${CATEGORY_LABELS[key] || key}</span>
-          <span class="threat-score-badge" style="color:${c.score}">${cat.score}</span>
+          <span class="threat-name">${CAT_ICONS[key]||''} ${CAT_LABELS[key]||key}</span>
+          <span class="threat-score" style="color:${cc.score}">${cat.score}</span>
         </div>
-        <div class="threat-headline">${cat.headline || ''}</div>
-        <div class="score-bar">
-          <div class="score-bar-fill" style="width:${cat.score}%;background:${c.bar}"></div>
-        </div>
-        <div class="evidence-title">Evidence found</div>
-        ${(cat.evidence || []).map(e => `<div class="evidence-item">${e}</div>`).join('')}
+        <div class="threat-headline">${cat.headline||''}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${cat.score}%;background:${cc.bar}"></div></div>
+        <div class="ev-title">Evidence found</div>
+        ${(cat.evidence||[]).map(e=>`<div class="ev-item">${e}</div>`).join('')}
         <ul class="fixes-list">
-          ${(cat.fixes || []).map(f => `
-            <li class="fix-item">
-              <input type="checkbox" class="fix-check" />
-              <span>${f}</span>
-            </li>`).join('')}
+          ${(cat.fixes||[]).map(f=>`<li class="fix-item"><input type="checkbox" class="fix-check"/><span>${f}</span></li>`).join('')}
         </ul>`;
-      grid.appendChild(card);
+      grid.appendChild(el);
     }
 
-    document.getElementById('reportOverlay').classList.add('visible');
-    document.getElementById('reportOverlay').scrollTo({ top: 0 });
+    /* switch pages */
+    document.getElementById('landing').style.display    = 'none';
+    document.getElementById('reportPage').classList.add('visible');
+    window.scrollTo({top:0});
   }
 
   function resetScan() {
     currentReport = null;
-    document.getElementById('reportOverlay').classList.remove('visible');
+    document.getElementById('reportPage').classList.remove('visible');
+    document.getElementById('landing').style.display = '';
     document.getElementById('handleInput').value = '';
     document.getElementById('handleInput').focus();
     setError('');
@@ -939,22 +729,18 @@
 
   function setError(msg) {
     const el = document.getElementById('error');
-    el.textContent = msg;
-    el.style.display = msg ? 'block' : 'none';
+    el.textContent = msg; el.style.display = msg ? 'block' : 'none';
   }
 
   function downloadReport() {
     if (!currentReport) return;
-    const blob = new Blob([JSON.stringify(currentReport, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(currentReport,null,2)],{type:'application/json'}));
     a.download = `ghostprint-${currentReport.handle}-report.json`;
     a.click();
   }
 
-  document.getElementById('handleInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') startScan();
-  });
+  document.getElementById('handleInput').addEventListener('keydown', e => { if (e.key==='Enter') startScan(); });
 </script>
 </body>
 </html>

@@ -84,6 +84,15 @@
       z-index: 0;
     }
 
+    #bgCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .glass {
       background: var(--surface);
       backdrop-filter: blur(20px);
@@ -325,14 +334,25 @@
       margin-bottom: 24px;
     }
 
-    .score-ring { position: relative; width: 130px; height: 130px; flex-shrink: 0; }
+    .score-block { display: flex; flex-direction: column; align-items: center; gap: 16px; flex-shrink: 0; }
+
+    .score-ring { position: relative; width: 150px; height: 150px; }
     .score-ring canvas { position: absolute; top: 0; left: 0; }
     .score-ring .score-num {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    .score-big  { font-size: 36px; font-weight: 800; line-height: 1; }
+    .score-big  { font-size: 38px; font-weight: 800; line-height: 1; }
     .score-lbl  { font-size: 9px; color: var(--muted); margin-top: 3px; letter-spacing: .1em; text-transform: uppercase; }
+
+    .score-legend { width: 100%; display: flex; flex-direction: column; gap: 6px; }
+    .legend-item  { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+    .legend-dot   { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .legend-label { flex: 1; color: var(--muted); white-space: nowrap; }
+    .legend-score { font-weight: 700; font-size: 12px; }
+    .legend-sep   { border: none; border-top: 1px solid var(--glass-border); margin: 2px 0; }
+    .legend-total { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; padding-top: 2px; }
+    .legend-total .legend-label { color: var(--text); }
 
     .hero-meta { display: flex; flex-direction: column; gap: 10px; }
     .hero-summary { font-size: 14px; color: var(--muted); line-height: 1.75; max-width: 700px; }
@@ -499,6 +519,8 @@
 </head>
 <body>
 
+<canvas id="bgCanvas"></canvas>
+
 <!-- ─── LANDING ─── -->
 <div id="landing">
   <button class="icon-btn" id="landingThemeToggle" onclick="toggleTheme()" title="Toggle theme" style="position:fixed;top:20px;right:20px;z-index:50;border-radius:50%;width:40px;height:40px;">🌙</button>
@@ -570,12 +592,15 @@
 
     <!-- hero: score ring + summary -->
     <div class="report-hero glass">
-      <div class="score-ring">
-        <canvas id="scoreChart" width="130" height="130"></canvas>
-        <div class="score-num">
-          <span class="score-big" id="scoreNum">--</span>
-          <span class="score-lbl">RISK</span>
+      <div class="score-block">
+        <div class="score-ring">
+          <canvas id="scoreChart" width="150" height="150"></canvas>
+          <div class="score-num">
+            <span class="score-big" id="scoreNum">--</span>
+            <span class="score-lbl">RISK</span>
+          </div>
         </div>
+        <div class="score-legend" id="scoreLegend"></div>
       </div>
       <div class="hero-meta">
         <div class="report-summary" id="reportSummary"></div>
@@ -740,15 +765,74 @@
     nb.textContent = (data.risk_level||'unknown').toUpperCase()+' RISK';
     nb.style.background = c.bg; nb.style.color = c.text; nb.style.border = `1px solid ${c.bar}55`;
 
-    /* score ring */
-    document.getElementById('scoreNum').textContent  = data.overall_score;
-    document.getElementById('scoreNum').style.color  = c.score;
+    /* score ring — 4-segment breakdown */
+    const CAT_ORDER = [
+      { key: 'location_exposure',  short: 'Location Exposure'  },
+      { key: 'dox_surface',        short: 'Dox Surface Area'   },
+      { key: 'breach_exposure',    short: 'Breach Exposure'    },
+      { key: 'impersonation_risk', short: 'Impersonation Risk' },
+    ];
+    const cats      = data.categories || {};
+    const catScores = CAT_ORDER.map(({ key }) => cats[key]?.score ?? 0);
+    const catColors = CAT_ORDER.map(({ key }) => getC(cats[key]?.risk_level || 'low').bar);
+    const trackCol  = isDark ? 'rgba(255,255,255,.04)' : 'rgba(0,0,0,.05)';
+
+    document.getElementById('scoreNum').textContent = data.overall_score;
+    document.getElementById('scoreNum').style.color = c.score;
     if (scoreChart) scoreChart.destroy();
     scoreChart = new Chart(document.getElementById('scoreChart').getContext('2d'), {
-      type:'doughnut',
-      data:{datasets:[{data:[data.overall_score,100-data.overall_score],backgroundColor:[c.bar,isDark?'rgba(255,255,255,.05)':'rgba(0,0,0,.07)'],borderWidth:0,borderRadius:4}]},
-      options:{cutout:'76%',plugins:{legend:{display:false},tooltip:{enabled:false}},animation:{duration:1000,easing:'easeOutCubic'}},
+      type: 'doughnut',
+      data: {
+        datasets: [
+          {
+            data: catScores,
+            backgroundColor: catColors,
+            borderWidth: 2,
+            borderColor: isDark ? 'rgba(6,13,31,0.8)' : 'rgba(240,244,251,0.8)',
+            borderRadius: 3,
+          },
+          {
+            data: [100],
+            backgroundColor: [trackCol],
+            borderWidth: 0,
+            weight: 0.08,
+          },
+        ],
+      },
+      options: {
+        cutout: '72%',
+        plugins: { legend: { display: false }, tooltip: {
+          enabled: true,
+          callbacks: {
+            label: (ctx) => {
+              if (ctx.datasetIndex !== 0) return null;
+              const name = CAT_ORDER[ctx.dataIndex]?.short || '';
+              return ` ${name}: ${ctx.parsed}`;
+            },
+          },
+        }},
+        animation: { duration: 1000, easing: 'easeOutCubic' },
+      },
     });
+
+    /* legend */
+    const legend = document.getElementById('scoreLegend');
+    legend.innerHTML =
+      CAT_ORDER.map(({ key, short }, i) => {
+        const score = catScores[i];
+        const color = catColors[i];
+        return `<div class="legend-item">
+          <span class="legend-dot" style="background:${color}"></span>
+          <span class="legend-label">${short}</span>
+          <span class="legend-score" style="color:${color}">${score}</span>
+        </div>`;
+      }).join('') +
+      `<hr class="legend-sep"/>
+       <div class="legend-total">
+         <span class="legend-dot" style="background:${c.bar}"></span>
+         <span class="legend-label">Overall score</span>
+         <span class="legend-score" style="color:${c.score}">${data.overall_score}</span>
+       </div>`;
 
     /* summary + meta */
     document.getElementById('reportSummary').textContent = data.summary || '';
@@ -877,6 +961,202 @@
   }
 
   document.getElementById('handleInput').addEventListener('keydown', e => { if (e.key==='Enter') startScan(); });
+</script>
+
+<script>
+/* ── Digital footprint background — vivid edition ── */
+(function () {
+  const canvas = document.getElementById('bgCanvas');
+  const ctx    = canvas.getContext('2d');
+
+  let W, H;
+  const N        = 90;       // particle count
+  const DIST     = 180;      // max connection distance
+  const SPEED    = 0.55;     // particle speed multiplier
+
+  /* colour palettes */
+  const DARK_PAL  = ['74,158,255', '124,92,252', '62,207,142', '255,92,158'];
+  const LIGHT_PAL = ['26,127,232', '96,64,208',  '21,154,96',  '220,50,100'];
+
+  /* ── Particles ── */
+  const pts = [];
+  class P {
+    constructor() { this.reset(true); }
+    reset(init = false) {
+      this.x  = init ? Math.random() * W : (Math.random() > .5 ? -10 : W + 10);
+      this.y  = init ? Math.random() * H : Math.random() * H;
+      this.vx = (Math.random() - .5) * SPEED;
+      this.vy = (Math.random() - .5) * SPEED;
+      this.r  = Math.random() * 2.2 + 1;
+      this.ci = Math.floor(Math.random() * 4);          // colour index
+      this.phase = Math.random() * Math.PI * 2;
+      this.pspd  = .022 + Math.random() * .025;
+      this.pulse = Math.random() > .72;
+      this.bright= Math.random() > .88;                 // extra-bright hub node
+    }
+    tick() {
+      this.x += this.vx; this.y += this.vy;
+      this.phase += this.pspd;
+      if (this.x < -30 || this.x > W+30 || this.y < -30 || this.y > H+30) this.reset();
+    }
+  }
+
+  /* ── Scan rings ── */
+  const rings = [];
+  class Ring {
+    constructor() {
+      this.x  = Math.random() * W;
+      this.y  = Math.random() * H;
+      this.r  = 0;
+      this.max= 120 + Math.random() * 120;
+      this.ci = Math.floor(Math.random() * 4);
+    }
+    tick() { this.r += 1.2; }
+    dead() { return this.r > this.max; }
+  }
+
+  /* ── Data streams — dots travelling along edges ── */
+  const streams = [];
+  class Stream {
+    constructor(ax, ay, bx, by, ci) {
+      this.ax = ax; this.ay = ay; this.bx = bx; this.by = by;
+      this.t  = 0; this.ci = ci;
+    }
+    tick() { this.t += .018; }
+    dead() { return this.t > 1; }
+  }
+
+  function spawnRing()   { if (rings.length < 6)   rings.push(new Ring()); }
+  function spawnStream() {
+    if (streams.length < 20 && pts.length > 1) {
+      const a = pts[Math.floor(Math.random() * pts.length)];
+      const b = pts[Math.floor(Math.random() * pts.length)];
+      if (a !== b) streams.push(new Stream(a.x, a.y, b.x, b.y, a.ci));
+    }
+  }
+
+  setInterval(spawnRing,   1800);
+  setInterval(spawnStream,  320);
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function init() {
+    pts.length = 0;
+    for (let i = 0; i < N; i++) pts.push(new P());
+    spawnRing();
+  }
+
+  function col(ci, dark) { return (dark ? DARK_PAL : LIGHT_PAL)[ci]; }
+
+  function drawGlow(x, y, r, rgb, alpha) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0,   `rgba(${rgb},${alpha})`);
+    g.addColorStop(1,   `rgba(${rgb},0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  }
+
+  function loop() {
+    const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+    ctx.clearRect(0, 0, W, H);
+
+    /* subtle dot-grid */
+    const gs = 44;
+    for (let gx = 0; gx < W; gx += gs) {
+      for (let gy = 0; gy < H; gy += gs) {
+        ctx.fillStyle = dark ? 'rgba(74,158,255,0.07)' : 'rgba(26,127,232,0.06)';
+        ctx.beginPath(); ctx.arc(gx, gy, 0.9, 0, Math.PI*2); ctx.fill();
+      }
+    }
+
+    /* scan rings */
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const rg = rings[i]; rg.tick();
+      if (rg.dead()) { rings.splice(i, 1); continue; }
+      const prog = rg.r / rg.max;
+      const a    = (1 - prog) * (dark ? 0.45 : 0.30);
+      ctx.strokeStyle = `rgba(${col(rg.ci, dark)},${a})`;
+      ctx.lineWidth   = 1.5;
+      ctx.beginPath(); ctx.arc(rg.x, rg.y, rg.r, 0, Math.PI*2); ctx.stroke();
+      /* inner bright rim */
+      ctx.strokeStyle = `rgba(${col(rg.ci, dark)},${a * .4})`;
+      ctx.lineWidth   = 0.5;
+      ctx.beginPath(); ctx.arc(rg.x, rg.y, rg.r * .7, 0, Math.PI*2); ctx.stroke();
+    }
+
+    /* connections */
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i+1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const d  = Math.sqrt(dx*dx + dy*dy);
+        if (d < DIST) {
+          const a = (1 - d/DIST) * (dark ? 0.28 : 0.18);
+          /* gradient line from each node's colour */
+          const grad = ctx.createLinearGradient(pts[i].x, pts[i].y, pts[j].x, pts[j].y);
+          grad.addColorStop(0, `rgba(${col(pts[i].ci, dark)},${a})`);
+          grad.addColorStop(1, `rgba(${col(pts[j].ci, dark)},${a})`);
+          ctx.strokeStyle = grad;
+          ctx.lineWidth   = (pts[i].bright || pts[j].bright) ? 1.2 : 0.7;
+          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
+        }
+      }
+    }
+
+    /* data-stream dots */
+    for (let i = streams.length - 1; i >= 0; i--) {
+      const s = streams[i]; s.tick();
+      if (s.dead()) { streams.splice(i, 1); continue; }
+      const sx = s.ax + (s.bx - s.ax) * s.t;
+      const sy = s.ay + (s.by - s.ay) * s.t;
+      const a  = Math.sin(s.t * Math.PI) * (dark ? 0.9 : 0.7);
+      drawGlow(sx, sy, 6, col(s.ci, dark), a * .35);
+      ctx.fillStyle = `rgba(${col(s.ci, dark)},${a})`;
+      ctx.beginPath(); ctx.arc(sx, sy, 2, 0, Math.PI*2); ctx.fill();
+    }
+
+    /* particles */
+    for (const p of pts) {
+      p.tick();
+      const sin  = Math.sin(p.phase);
+      const rgb  = col(p.ci, dark);
+
+      if (p.bright) {
+        /* hub node — large glow + bright core */
+        drawGlow(p.x, p.y, 22, rgb, dark ? 0.22 : 0.15);
+        ctx.fillStyle = `rgba(${rgb},${dark ? 0.95 : 0.85})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r + 1.5, 0, Math.PI*2); ctx.fill();
+        /* crosshair tick marks */
+        ctx.strokeStyle = `rgba(${rgb},0.4)`;
+        ctx.lineWidth = 0.8;
+        [[p.x-8,p.y,p.x-4,p.y],[p.x+4,p.y,p.x+8,p.y],[p.x,p.y-8,p.x,p.y-4],[p.x,p.y+4,p.x,p.y+8]].forEach(([x1,y1,x2,y2])=>{
+          ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+        });
+      } else if (p.pulse) {
+        /* pulsing ring + glow */
+        const ringR = 9 + sin * 5;
+        const ringA = (.55 + sin * .35) * (dark ? .50 : .35);
+        ctx.strokeStyle = `rgba(${rgb},${ringA})`;
+        ctx.lineWidth   = 1.2;
+        ctx.beginPath(); ctx.arc(p.x, p.y, ringR, 0, Math.PI*2); ctx.stroke();
+        drawGlow(p.x, p.y, 14, rgb, (.3 + sin*.2) * (dark?.30:.18));
+        ctx.fillStyle = `rgba(${rgb},${dark ? .90 : .80})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r + .6, 0, Math.PI*2); ctx.fill();
+      } else {
+        const a = (.45 + sin * .2) * (dark ? .80 : .60);
+        ctx.fillStyle = `rgba(${rgb},${a})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  resize(); init(); loop();
+})();
 </script>
 </body>
 </html>

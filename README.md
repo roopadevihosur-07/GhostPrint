@@ -1,8 +1,8 @@
-# CreatorShield 🛡️
+# GhostPrint
 
-**Influencer privacy threat scanner powered by 7 Apify Actors + Claude AI**
+**Know your exposure, Own your privacy.**
 
-Scrapes Instagram, TikTok, Twitter/X, YouTube, Google Search, Google News, and bio-linked websites in parallel — then uses Claude to classify threats into 4 categories with verbatim evidence and actionable fixes.
+Influencer privacy threat scanner powered by 8 Apify Actors + Claude AI. Scrapes Instagram, TikTok, Twitter/X, YouTube, LinkedIn, Google Search, Google News, and bio-linked websites in parallel — then uses Claude to classify threats into 4 categories with verbatim evidence and actionable fixes.
 
 ---
 
@@ -41,7 +41,7 @@ Open http://localhost:3000
 User enters @handle
        │
        ▼
-7 Apify Actors fire in parallel (Promise.allSettled)
+8 Apify Actors fire in parallel (Promise.allSettled)
   1. apify/instagram-scraper          → bio, captions, tagged locations
   2. clockworks/tiktok-scraper        → captions, bio link, region
   3. apidojo/tweet-scraper-v2         → tweets, replies, location field
@@ -49,6 +49,7 @@ User enters @handle
   5. apify/google-search-scraper      → 3 privacy-targeted queries
   6. misceres/google-news             → press articles, scam reports
   7. apify/website-content-crawler    → bio-linked sites (Linktree etc.)
+  8. bebity/linkedin-profile-scraper  → headline, location, employer, education
        │
        ▼
 Normalize → single JSON payload (text only, capped at ~9k tokens)
@@ -61,8 +62,17 @@ Claude threat analysis → 4 scored categories + verbatim evidence
   • Impersonation risk
        │
        ▼
-Privacy report dashboard + remediation checklist
+Full-page privacy report + remediation checklist
 ```
+
+---
+
+## Report features
+
+- **Threats tab** — 4 scored threat categories with verbatim evidence and fix checklist
+- **Platforms tab** — direct profile links for all 8 scraped platforms (Instagram, TikTok, Twitter/X, YouTube, LinkedIn, Google Search, Google News, Bio Website)
+- **Light / dark mode** — auto-detects system preference, persisted to localStorage
+- **Download** — export full report as JSON
 
 ---
 
@@ -87,21 +97,21 @@ Privacy report dashboard + remediation checklist
 | Jumbo / PrivacyBee | Generic consumer, not creator-specific |
 | Maltego / Social Links | $500+/mo enterprise tools, not self-serve |
 
-**CreatorShield is the only self-serve, creator-first, multi-platform privacy scanner that explains threats in plain English with specific evidence from your own content.**
+**GhostPrint is the only self-serve, creator-first, multi-platform privacy scanner that explains threats in plain English with specific evidence from your own content.**
 
 ---
 
 ## Project structure
 
 ```
-creatorshield/
+ghostprint/
 ├── src/
 │   ├── server.js       — Express API server
-│   ├── scraper.js      — 7 Apify Actor calls (parallel)
+│   ├── scraper.js      — 8 Apify Actor calls (parallel)
 │   ├── analyzer.js     — Claude threat classification
 │   └── cache.js        — File-based result caching
 ├── public/
-│   └── index.html      — Full dashboard UI (single file)
+│   └── index.html      — Full-page dashboard UI (single file)
 ├── cache/              — Auto-created, stores JSON reports
 ├── pre-cache.js        — Demo prep script
 ├── package.json
@@ -115,5 +125,5 @@ creatorshield/
 
 1. Run `node pre-cache.js` on 2-3 creators the night before
 2. On stage: enter a creator name the judge suggests — their report will appear live via cache
-3. Point out a real evidence quote from the scrap: "This exact caption from their Instagram is what gives away their neighborhood"
-4. Pitch line: *"Every privacy tool was built for IT teams. Creators have a unique problem — being public is their job. CreatorShield is the first scanner that understands that."*
+3. Point out a real evidence quote from the scrape: "This exact caption from their Instagram is what gives away their neighborhood"
+4. Pitch line: *"Every privacy tool was built for IT teams. Creators have a unique problem — being public is their job. GhostPrint is the first scanner that understands that."*

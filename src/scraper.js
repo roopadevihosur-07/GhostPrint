@@ -31,11 +31,11 @@ function extractBioLinks(igItems, ttItems) {
   return [...new Set(links)].slice(0, 3);
 }
 
-// ── Main scrape function: fires all 7 Actors ──
+// ── Main scrape function: fires all 8 Actors ──
 export async function scrapeCreator(handle) {
-  console.log(`\n[Scraper] Firing 6 actors in parallel for @${handle}...`);
+  console.log(`\n[Scraper] Firing 7 actors in parallel for @${handle}...`);
 
-  const [igResult, ttResult, twResult, ytResult, gSearchResult, gNewsResult] =
+  const [igResult, ttResult, twResult, ytResult, gSearchResult, gNewsResult, liResult] =
     await Promise.allSettled([
 
       // 1. Instagram — bio, captions, tagged locations
@@ -84,6 +84,11 @@ export async function scrapeCreator(handle) {
         maxItems: 20,
         language: "en",
       }),
+
+      // 7. LinkedIn — public profile: bio, location, employer, education
+      runActor("bebity/linkedin-profile-scraper", {
+        profileUrls: [`https://www.linkedin.com/in/${handle}`],
+      }, 5),
     ]);
 
   const resolve = (r) => (r.status === "fulfilled" ? r.value : []);
@@ -94,6 +99,7 @@ export async function scrapeCreator(handle) {
   const ytItems = resolve(ytResult);
   const gsItems = resolve(gSearchResult);
   const gnItems = resolve(gNewsResult);
+  const liItems = resolve(liResult);
 
   // 7. Website content crawler — fires on bio links from IG + TikTok
   const bioLinks = extractBioLinks(igItems, ttItems);
@@ -167,6 +173,16 @@ export async function scrapeCreator(handle) {
     websiteText: websiteItems.slice(0, 3).map((p) => ({
       url: p.url || "",
       text: (p.text || "").slice(0, 500),
+    })),
+
+    linkedin: liItems.slice(0, 3).map((p) => ({
+      name:       p.name || p.fullName || "",
+      headline:   p.headline || "",
+      location:   p.location || p.geoLocation || "",
+      summary:    (p.summary || p.about || "").slice(0, 400),
+      employer:   p.currentCompany || p.position || "",
+      education:  (p.education || []).map((e) => e.schoolName || e.school || "").filter(Boolean).join(", "),
+      connections: p.connectionsCount || "",
     })),
   };
 }

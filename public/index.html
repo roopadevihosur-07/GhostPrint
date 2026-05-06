@@ -408,6 +408,78 @@
     .fix-item:last-child { border-bottom: none; }
     .fix-check { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: var(--accent); }
 
+    /* ── Tabs ── */
+    .report-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 5px;
+      width: fit-content;
+    }
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: inherit;
+    }
+    .tab-btn:hover { color: var(--text); background: var(--glass-hover); }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4a9eff, #7c5cfc);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(74,158,255,.3);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Platforms tab ── */
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .platform-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: all .2s;
+      border-radius: 20px;
+    }
+    .platform-card:hover { background: var(--glass-hover); transform: translateY(-2px); }
+    .platform-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      background: var(--ev-bg);
+      border: 1px solid var(--glass-border);
+    }
+    .platform-info { flex: 1; min-width: 0; }
+    .platform-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .platform-url  {
+      font-size: 11px; color: var(--hint);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .platform-arrow {
+      color: var(--hint); font-size: 14px; flex-shrink: 0;
+      transition: transform .2s, color .2s;
+    }
+    .platform-card:hover .platform-arrow { transform: translateX(3px); color: var(--accent); }
+
     /* responsive */
     @media (max-width: 900px) {
       .report-grid { grid-template-columns: 1fr; }
@@ -463,7 +535,7 @@
     <ul class="step-list">
       <li class="step"><div class="step-icon"></div>Starting 7 Apify actors in parallel</li>
       <li class="step"><div class="step-icon"></div>Scraping Instagram, TikTok, Twitter/X</li>
-      <li class="step"><div class="step-icon"></div>Scraping YouTube, Google Search, News</li>
+      <li class="step"><div class="step-icon"></div>Scraping YouTube, Google Search, News, LinkedIn</li>
       <li class="step"><div class="step-icon"></div>Crawling bio links &amp; external sites</li>
       <li class="step"><div class="step-icon"></div>Analyzing threats with Claude AI</li>
       <li class="step"><div class="step-icon"></div>Building your privacy report</li>
@@ -515,19 +587,28 @@
       </div>
     </div>
 
-    <!-- actions + threats -->
-    <div class="report-grid">
-
-      <!-- left: top 3 actions -->
-      <div class="actions-card glass">
-        <div class="section-title">Top 3 urgent actions</div>
-        <div id="actionsList"></div>
-      </div>
-
-      <!-- right: 2×2 threat cards -->
-      <div class="threat-grid" id="threatGrid"></div>
-
+    <!-- tab bar -->
+    <div class="report-tabs">
+      <button class="tab-btn active" onclick="switchTab('threats', this)">🛡 Threats</button>
+      <button class="tab-btn"        onclick="switchTab('platforms', this)">🔗 Platforms</button>
     </div>
+
+    <!-- tab: threats -->
+    <div class="tab-panel active" id="tab-threats">
+      <div class="report-grid">
+        <div class="actions-card glass">
+          <div class="section-title">Top 3 urgent actions</div>
+          <div id="actionsList"></div>
+        </div>
+        <div class="threat-grid" id="threatGrid"></div>
+      </div>
+    </div>
+
+    <!-- tab: platforms -->
+    <div class="tab-panel" id="tab-platforms">
+      <div class="platforms-grid" id="platformsGrid"></div>
+    </div>
+
   </div>
 </div>
 
@@ -712,7 +793,15 @@
       grid.appendChild(el);
     }
 
-    /* switch pages */
+    /* platforms tab */
+    buildPlatformsTab(data.handle, data.scraped_platforms);
+
+    /* reset to threats tab & switch pages */
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-threats').classList.add('active');
+    document.querySelector('.tab-btn').classList.add('active');
+
     document.getElementById('landing').style.display    = 'none';
     document.getElementById('reportPage').classList.add('visible');
     window.scrollTo({top:0});
@@ -738,6 +827,53 @@
     a.href = URL.createObjectURL(new Blob([JSON.stringify(currentReport,null,2)],{type:'application/json'}));
     a.download = `ghostprint-${currentReport.handle}-report.json`;
     a.click();
+  }
+
+  /* ── Tabs ── */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  /* ── Platform URL map ── */
+  const PLATFORM_META = {
+    instagram:  { label: 'Instagram',     icon: '📸', url: h => `https://www.instagram.com/${h}` },
+    tiktok:     { label: 'TikTok',        icon: '🎵', url: h => `https://www.tiktok.com/@${h}` },
+    twitter:    { label: 'Twitter / X',   icon: '𝕏',  url: h => `https://x.com/${h}` },
+    youtube:    { label: 'YouTube',       icon: '▶️', url: h => `https://www.youtube.com/@${h}` },
+    linkedin:   { label: 'LinkedIn',      icon: '💼', url: h => `https://www.linkedin.com/in/${h}` },
+    google:     { label: 'Google Search', icon: '🔍', url: h => `https://www.google.com/search?q=${encodeURIComponent(h)}` },
+    news:       { label: 'Google News',   icon: '📰', url: h => `https://news.google.com/search?q=${encodeURIComponent(h)}` },
+    website:    { label: 'Bio Website',   icon: '🌐', url: h => `https://www.google.com/search?q=${encodeURIComponent(h)}+site:linktree.com+OR+site:beacons.ai` },
+  };
+
+  function buildPlatformsTab(handle, scrapedPlatforms) {
+    const grid = document.getElementById('platformsGrid');
+    grid.innerHTML = '';
+
+    const platforms = scrapedPlatforms && scrapedPlatforms.length
+      ? scrapedPlatforms
+      : Object.keys(PLATFORM_META);
+
+    for (const key of platforms) {
+      const meta = PLATFORM_META[key] || { label: key, icon: '🔗', url: h => `https://www.google.com/search?q=${encodeURIComponent(h)}` };
+      const href = meta.url(handle);
+      const card = document.createElement('a');
+      card.className = 'platform-card glass';
+      card.href = href;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.innerHTML = `
+        <div class="platform-icon">${meta.icon}</div>
+        <div class="platform-info">
+          <div class="platform-name">${meta.label}</div>
+          <div class="platform-url">${href}</div>
+        </div>
+        <span class="platform-arrow">→</span>`;
+      grid.appendChild(card);
+    }
   }
 
   document.getElementById('handleInput').addEventListener('keydown', e => { if (e.key==='Enter') startScan(); });
